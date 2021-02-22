@@ -48,8 +48,11 @@ namespace VVVPMX
     {
         static void Main(string[] args)
         {
-            string inname = @"F:\rip\nvs\convert\C520\C520.pmx";
-            string outname = @"F:\rip\nvs\convert\C520\C520.out.pmx";
+            string inname = @"F:\rip\nvs\convert\C526\C526.pmx";
+            string outname = @"F:\rip\nvs\convert\C526\C526.out.pmx";
+
+            string modelName = "Noire Bunny";
+            string modelComment = "Ripped from VVVTune! Model is made by Idea Factory and Compile Heart, ported to MMD by haoLink.\r\n\r\nFeel free to use, please respect the original makers though!";
 
             BoneData[] bones = new BoneData[]
             {
@@ -219,6 +222,8 @@ namespace VVVPMX
             {
                 new ExtraGroup() { GroupName = "Hair", GroupKeys = new string[] { "hair" } },
                 new ExtraGroup() { GroupName = "Skirt", GroupKeys = new string[] { "skirt" } },
+                new ExtraGroup() { GroupName = "Scarf", GroupKeys = new string[] { "scarf" } },
+                new ExtraGroup() { GroupName = "Twintails", GroupKeys = new string[] { "twin" } },
                 new ExtraGroup() { GroupName = "Body", GroupKeys = new string[] { "bust", "cloth" } },
             };
             
@@ -760,9 +765,44 @@ namespace VVVPMX
                 pmxmd.DisplaySlots[1].References.Add(mrph);
             }
 
+
+            if(jpBones.ContainsKey("右腕"))
+            {                
+                BoneRotator.RotateZ(pmxmd, jpBones["右腕"], 30.0);
+                BoneRotator.StraightenHierarchie(pmxmd, jpBones["右腕"]);
+            }
+            if (jpBones.ContainsKey("左腕"))
+            {
+                BoneRotator.RotateZ(pmxmd, jpBones["左腕"], -30.0);
+                BoneRotator.StraightenHierarchie(pmxmd, jpBones["左腕"]);
+            }
+            if (jpBones.ContainsKey("右肩"))
+            {
+                BoneRotator.RotateZ(pmxmd, jpBones["右肩"], 5.0);
+                BoneRotator.StraightenHierarchie(pmxmd, jpBones["右肩"]);
+            }
+            if (jpBones.ContainsKey("左肩"))
+            {
+                BoneRotator.RotateZ(pmxmd, jpBones["左肩"], -5.0);
+                BoneRotator.StraightenHierarchie(pmxmd, jpBones["左肩"]);
+            }
+
+            if (modelName != null)
+            {
+                pmxmd.NameEN = modelName;
+                pmxmd.NameJP = modelName;
+            }
+
+            if(modelComment != null)
+            {
+                pmxmd.DescriptionEN = modelComment;
+                pmxmd.DescriptionJP = modelComment;
+            }
+
             pmxmd.SaveToFile(outname);
 
-            Console.ReadLine();
+            Console.WriteLine("Success");
+            System.Threading.Thread.Sleep(1500);
         }
 
         private static bool BoneHasAssignedVertices(PMXModel mdl, PMXBone bn, Dictionary<PMXBone, bool> boneHasDirectVertices)
@@ -777,6 +817,11 @@ namespace VVVPMX
             }
 
             if (bn.NameJP == "両目")
+            {
+                return true;
+            }
+
+            if (bn.NameJP.Length > 2 && bn.NameJP.Substring(bn.NameJP.Length - 2, 2) == "ＩＫ")
             {
                 return true;
             }

@@ -314,7 +314,7 @@ namespace PMXStructure.PMXClasses
             PMXVector3 targetLocation;
             if (this.HasChildBone)
             {
-                if (this.ChildBone == this)
+                if (this.ChildBone == this || this.ChildBone == null)
                 {
                     return;
                 }
@@ -539,13 +539,13 @@ namespace PMXStructure.PMXClasses
         /// <param name="exportSettings"></param>
         /// <param name="nullAcceptable"></param>
         /// <returns></returns>
-        public static int CheckIndexInModel(PMXBone bn, MMDExportSettings exportSettings, bool nullAcceptable = true)
+        public static int CheckIndexInModel(PMXBone bn, MMDExportSettings exportSettings, bool nullAcceptable = true, int indexIfNull = -1)
         {
             if(bn == null)
             {
                 if(nullAcceptable)
                 {
-                    return -1;
+                    return indexIfNull;
                 }
                 else
                 {
