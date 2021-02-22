@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using PMXStructure.PMXClasses;
 using System.Globalization;
+using System.IO;
 
 namespace VVVPMX
 {
@@ -48,10 +49,10 @@ namespace VVVPMX
     {
         static void Main(string[] args)
         {
-            string inname = @"F:\rip\nvs\convert\C526\C526.pmx";
-            string outname = @"F:\rip\nvs\convert\C526\C526.out.pmx";
+            string inname = @"F:\rip\nvs\convert\C525\C525.pmx";
+            string outname = @"F:\rip\nvs\mmd\noire\beach.pmx";
 
-            string modelName = "Noire Bunny";
+            string modelName = "Noire Beach";
             string modelComment = "Ripped from VVVTune! Model is made by Idea Factory and Compile Heart, ported to MMD by haoLink.\r\n\r\nFeel free to use, please respect the original makers though!";
 
             BoneData[] bones = new BoneData[]
@@ -799,10 +800,100 @@ namespace VVVPMX
                 pmxmd.DescriptionJP = modelComment;
             }
 
+            File_CRC32 crc32 = new File_CRC32();
+
+            string texDirectory = Path.GetDirectoryName(outname) + Path.DirectorySeparatorChar + "tex";
+            if (!Directory.Exists(texDirectory))
+            {
+                Directory.CreateDirectory(texDirectory);
+            }
+            string[] files = Directory.GetFiles(texDirectory, "*.*");
+            List<string> texFiles = new List<string>();
+
+            foreach (string fle in files)
+            {
+                string flNoExt = Path.GetFileNameWithoutExtension(fle);
+                if (flNoExt.Substring(0, 2).ToLowerInvariant() == "tx")
+                {
+                    texFiles.Add(flNoExt);
+                }
+            }
+
+            Dictionary<uint, string> outputFileHashes = new Dictionary<uint, string>();
+            Dictionary<string, uint> inputFileHashes = new Dictionary<string, uint>();
+
+            foreach (string fullpath in files)
+            {
+                uint hash = crc32.GetCRC32(fullpath);
+                string filename = Path.GetFileName(fullpath);
+                outputFileHashes.Add(hash, filename);
+            }
+
+            List<string> texFilenames = new List<string>();
+            string inputDirectory = Path.GetDirectoryName(inname) + Path.DirectorySeparatorChar;
+            foreach (PMXMaterial mat in pmxmd.Materials)
+            {
+                string txName = mat.DiffuseTexture;
+                if (txName != null && File.Exists(inputDirectory + txName) && !texFilenames.Contains(txName))
+                {
+                    texFilenames.Add(txName);
+                }
+                txName = mat.SphereTexture;
+                if (txName != null && File.Exists(inputDirectory + txName) && !texFilenames.Contains(txName))
+                {
+                    texFilenames.Add(txName);
+                }
+            }
+
+            foreach (string txName in texFilenames)
+            {
+                uint hash = crc32.GetCRC32(inputDirectory + txName);
+                inputFileHashes.Add(txName, hash);
+            }
+
+            foreach (PMXMaterial mat in pmxmd.Materials)
+            {
+                mat.DiffuseTexture = GetTargetFileName(inputFileHashes, outputFileHashes, texFiles, texDirectory, inputDirectory, mat.DiffuseTexture);
+                mat.SphereTexture = GetTargetFileName(inputFileHashes, outputFileHashes, texFiles, texDirectory, inputDirectory, mat.SphereTexture);
+            }
+
             pmxmd.SaveToFile(outname);
 
             Console.WriteLine("Success");
             System.Threading.Thread.Sleep(1500);
+        }
+
+        private static string GetTargetFileName(Dictionary<string, uint> inputFileHashes, Dictionary<uint, string> outputFileHashes, List<string> texFiles, string outputDirectory, string inputDirectory, string filename)
+        {
+            if (filename == null || !inputFileHashes.ContainsKey(filename))
+            {
+                return filename;
+            }
+
+            uint hash = inputFileHashes[filename];
+            if (outputFileHashes.ContainsKey(hash))
+            {
+                return "tex" + Path.DirectorySeparatorChar + outputFileHashes[hash];
+            }
+
+            string ext = Path.GetExtension(inputDirectory + filename);
+
+            int i = 1;
+            while (texFiles.Contains("tx" + i.ToString()))
+            {
+                i++;
+            }
+
+            texFiles.Add("tx" + i.ToString());
+
+            string outFn = "tx" + i.ToString() + ext;
+            string outputCopy = outputDirectory + Path.DirectorySeparatorChar + "tx" + i.ToString() + ext;
+
+            outputFileHashes.Add(hash, outFn);
+
+            File.Copy(inputDirectory + filename, outputCopy, false);
+
+            return "tex" + Path.DirectorySeparatorChar + outFn;
         }
 
         private static bool BoneHasAssignedVertices(PMXModel mdl, PMXBone bn, Dictionary<PMXBone, bool> boneHasDirectVertices)
