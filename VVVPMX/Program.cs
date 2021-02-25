@@ -261,7 +261,7 @@ namespace VVVPMX
                 new BoneData() { OrgName="character1_rightupleg", JpName="右足", EnName="groin_r", ChildJp="右ひざ", Group = "Legs" },
                 new BoneData() { OrgName="character1_rightleg", JpName="右ひざ", EnName="knee_r", ChildJp="右足首", Group = "Legs" },
                 new BoneData() { OrgName="character1_rightfoot", JpName="右足首", EnName="ankle_r", ChildJp="右つま先", Group = "Legs" },
-                new BoneData() { OrgName="character1_roghttoebase", JpName="右つま先", EnName="toe_r", ChildJp="右つま先E", Group = "Legs", Direction = new PMXVector3(0, 0, -0.6f) },
+                new BoneData() { OrgName="character1_righttoebase", JpName="右つま先", EnName="toe_r", ChildJp="右つま先E", Group = "Legs", Direction = new PMXVector3(0, 0, -0.6f) },
             };
 
             MorphData[] mds = new MorphData[]
