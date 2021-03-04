@@ -22,6 +22,7 @@ namespace VVVPMX
         public string ChildJp = null;
         public string Group = null;
         public PMXVector3 Direction = null;
+        public string UseLocationOfJp = null;
     }
 
     public class MorphData
@@ -49,13 +50,14 @@ namespace VVVPMX
     {
         static void Main(string[] args)
         {
-            string inname = @"F:\rip\nvs\convert\C830\C830.pmx";
-            string outname = @"F:\rip\nvs\mmd\ileheart\ileheart.pmx";
+            string inname = @"F:\rip\nvs\convert\C550\C550.pmx";
+            string outname = @"F:\rip\nvs\mmd\pheart\purpleheart.pmx";
 
-            string modelName = "Ileheart";
+            string modelName = "Purple Heart";
             string modelComment = "Ripped from VVVTune! Model is made by Idea Factory and Compile Heart, ported to MMD by haoLink.\r\n\r\nFeel free to use, please respect the original makers though!";
 
-            bool prefixDefault = false;
+            bool prefixDefault = true;
+            bool groupLess = true;
 
             BoneData[] bones = new BoneData[]
             {
@@ -262,6 +264,107 @@ namespace VVVPMX
                 new BoneData() { OrgName="character1_rightleg", JpName="右ひざ", EnName="knee_r", ChildJp="右足首", Group = "Legs" },
                 new BoneData() { OrgName="character1_rightfoot", JpName="右足首", EnName="ankle_r", ChildJp="右つま先", Group = "Legs" },
                 new BoneData() { OrgName="character1_righttoebase", JpName="右つま先", EnName="toe_r", ChildJp="右つま先E", Group = "Legs", Direction = new PMXVector3(0, 0, -0.6f) },
+
+                new BoneData() { OrgName="transform1", Hidden=true },
+                new BoneData() { OrgName="transform2", Hidden=true },
+
+
+                //Goddesses
+                //Body
+                new BoneData() { OrgName="point", Hidden = true },
+                new BoneData() { OrgName="center", EnName="lower", JpName="下半身", UseLocationOfJp="上半身", Direction = new PMXVector3(0, -1.0f, 0), ParentJp="センター", Group = "Body" },
+                new BoneData() { OrgName="spine_00", EnName="lback", JpName="上半身", ChildJp="上半身２", ParentJp = "センター", Group = "Body" },
+                new BoneData() { OrgName="spine_01", EnName="uback", JpName="上半身２", ChildJp="上半身３", Group = "Body" },
+                new BoneData() { OrgName="spine_02", EnName="thorax", JpName="上半身３", ChildJp="首", Group = "Body" },
+                new BoneData() { OrgName="neck", EnName="neck", JpName="首", ChildJp="頭", Group = "Body" },
+                new BoneData() { OrgName="head", EnName="head", JpName="頭", Direction = new PMXVector3(0, 2.0f, 0), Group = "Body" },
+
+                //Eyes
+                new BoneData() { OrgName="l_neutral_eyerot_001", EnName="eye_l", JpName="左目", ChildJp="左目E", Group = "Body" },
+                new BoneData() { OrgName="l_neutral_eye_001", Hidden = true, JpName="左目E" },
+                new BoneData() { OrgName="r_neutral_eyerot_001", EnName="eye_r", JpName="右目", ChildJp="右目E", Group = "Body" },
+                new BoneData() { OrgName="r_neutral_eye_001", Hidden = true, JpName="右目E" },
+
+                //Left arm
+                new BoneData() { OrgName="l_shoulder", EnName="shoulder_l", JpName="左肩", ChildJp="左腕", Group = "Arms" },
+                new BoneData() { OrgName="l_arm", EnName="arm_l", JpName="左腕", ChildJp="左ひじ", Group = "Arms" },
+                new BoneData() { OrgName="l_elbow", EnName="elbow_l", JpName="左ひじ", ChildJp="左手首", Group = "Arms" },
+                new BoneData() { OrgName="l_hand", EnName="hand_l", JpName="左手首", Direction = new PMXVector3(0.6f, 0, 0), Group = "Arms" },
+                new BoneData() { OrgName="l_sub_elbow", Hidden = true },
+                new BoneData() { OrgName="l_sub_shoulder", Hidden = true },
+                new BoneData() { OrgName="l_elbow_hojo", Hidden = true },
+                new BoneData() { OrgName="l_elbow_hojo_02", Hidden = true },
+
+                //Right arm
+                new BoneData() { OrgName="r_shoulder", EnName="shoulder_r", JpName="右肩", ChildJp="右腕", Group = "Arms" },
+                new BoneData() { OrgName="r_arm", EnName="arm_r", JpName="右腕", ChildJp="右ひじ", Group = "Arms" },
+                new BoneData() { OrgName="r_elbow", EnName="elbow_r", JpName="右ひじ", ChildJp="右手首", Group = "Arms" },
+                new BoneData() { OrgName="r_hand", EnName="hand_r", JpName="右手首", Direction = new PMXVector3(-0.6f, 0, 0), Group = "Arms" },
+                new BoneData() { OrgName="r_sub_elbow", Hidden = true },
+                new BoneData() { OrgName="r_sub_shoulder", Hidden = true },
+                new BoneData() { OrgName="r_elbow_hojo", Hidden = true },
+                new BoneData() { OrgName="r_elbow_hojo_02", Hidden = true },
+
+                //Left thumb
+                new BoneData() { OrgName="l_thumb_01", JpName="左親指０", EnName="thumb_L1", ChildJp="左親指１", Group = "Fingers" },
+                new BoneData() { OrgName="l_thumb_02", JpName="左親指１", EnName="thumb_L2", ChildJp="左親指２", Group = "Fingers" },
+                new BoneData() { OrgName="l_thumb_03", JpName="左親指２", EnName="thumb_L3", Group = "Fingers", Direction = new PMXVector3(0.2f, 0.0f, 0.0f) },
+                //Left index finger
+                new BoneData() { OrgName="l_index_01", JpName="左人指１", EnName="index_L1", ChildJp="左人指２", Group = "Fingers" },
+                new BoneData() { OrgName="l_index_02", JpName="左人指２", EnName="index_L2", ChildJp="左人指３", Group = "Fingers" },
+                new BoneData() { OrgName="l_index_03", JpName="左人指３", EnName="index_L3", Group = "Fingers", Direction = new PMXVector3(0.2f, 0.0f, 0.0f) },                
+                //Left middle finger
+                new BoneData() { OrgName="l_middle_01", JpName="左中指１", EnName="middle_L1", ChildJp="左中指２", Group = "Fingers" },
+                new BoneData() { OrgName="l_middle_02", JpName="左中指２", EnName="middle_L2", ChildJp="左中指３", Group = "Fingers" },
+                new BoneData() { OrgName="l_middle_03", JpName="左中指３", EnName="middle_L3", Group = "Fingers", Direction = new PMXVector3(0.2f, 0.0f, 0.0f) },
+                //Left ring finger
+                new BoneData() { OrgName="l_ring_01", JpName="左薬指１", EnName="ring_L1", ChildJp="左薬指２", Group = "Fingers" },
+                new BoneData() { OrgName="l_ring_02", JpName="左薬指２", EnName="ring_L2", ChildJp="左薬指３", Group = "Fingers" },
+                new BoneData() { OrgName="l_ring_03", JpName="左薬指３", EnName="ring_L3", Group = "Fingers", Direction = new PMXVector3(0.2f, 0.0f, 0.0f) },
+                //Left pinkie
+                new BoneData() { OrgName="l_pinkey_01", JpName="左小指１", EnName="pinkie_L1", ChildJp="左小指２", Group = "Fingers" },
+                new BoneData() { OrgName="l_pinkey_02", JpName="左小指２", EnName="pinkie_L2", ChildJp="左小指３", Group = "Fingers" },
+                new BoneData() { OrgName="l_pinkey_03", JpName="左小指３", EnName="pinkie_L3", Group = "Fingers", Direction = new PMXVector3(0.2f, 0.0f, 0.0f) },
+
+                //Right thumb
+                new BoneData() { OrgName="r_thumb_01", JpName="右親指０", EnName="thumb_r1", ChildJp="右親指１", Group = "Fingers" },
+                new BoneData() { OrgName="r_thumb_02", JpName="右親指１", EnName="thumb_r2", ChildJp="右親指２", Group = "Fingers" },
+                new BoneData() { OrgName="r_thumb_03", JpName="右親指２", EnName="thumb_r3", Group = "Fingers", Direction = new PMXVector3(-0.2f, 0.0f, 0.0f) },
+                //Right index finger
+                new BoneData() { OrgName="r_index_01", JpName="右人指１", EnName="index_r1", ChildJp="右人指２", Group = "Fingers" },
+                new BoneData() { OrgName="r_index_02", JpName="右人指２", EnName="index_r2", ChildJp="右人指３", Group = "Fingers" },
+                new BoneData() { OrgName="r_index_03", JpName="右人指３", EnName="index_r3", Group = "Fingers", Direction = new PMXVector3(-0.2f, 0.0f, 0.0f) },                
+                //Right middle finger
+                new BoneData() { OrgName="r_middle_01", JpName="右中指１", EnName="middle_r1", ChildJp="右中指２", Group = "Fingers" },
+                new BoneData() { OrgName="r_middle_02", JpName="右中指２", EnName="middle_r2", ChildJp="右中指３", Group = "Fingers" },
+                new BoneData() { OrgName="r_middle_03", JpName="右中指３", EnName="middle_r3", Group = "Fingers", Direction = new PMXVector3(-0.2f, 0.0f, 0.0f) },
+                //Right ring finger
+                new BoneData() { OrgName="r_ring_01", JpName="右薬指１", EnName="ring_r1", ChildJp="右薬指２", Group = "Fingers" },
+                new BoneData() { OrgName="r_ring_02", JpName="右薬指２", EnName="ring_r2", ChildJp="右薬指３", Group = "Fingers" },
+                new BoneData() { OrgName="r_ring_03", JpName="右薬指３", EnName="ring_r3", Group = "Fingers", Direction = new PMXVector3(-0.2f, 0.0f, 0.0f) },
+                //Right pinkie
+                new BoneData() { OrgName="r_pinkey_01", JpName="右小指１", EnName="pinkie_r1", ChildJp="右小指２", Group = "Fingers" },
+                new BoneData() { OrgName="r_pinkey_02", JpName="右小指２", EnName="pinkie_r2", ChildJp="右小指３", Group = "Fingers" },
+                new BoneData() { OrgName="r_pinkey_03", JpName="右小指３", EnName="pinkie_r3", Group = "Fingers", Direction = new PMXVector3(-0.2f, 0.0f, 0.0f) },
+
+                //Left leg
+                new BoneData() { OrgName="l_leg_01", JpName="左足", EnName="groin_l", ParentJp="下半身", ChildJp="左ひざ", Group = "Legs" },
+                new BoneData() { OrgName="l_leg_02", JpName="左ひざ", EnName="knee_l", ChildJp="左足首", Group = "Legs" },
+                new BoneData() { OrgName="l_foot_01", JpName="左足首", EnName="ankle_l", ChildJp="左つま先", Group = "Legs" },
+                new BoneData() { OrgName="l_toe", JpName="左つま先", EnName="toe_l", ChildJp="左つま先E", Group = "Legs" },
+                new BoneData() { OrgName="l_toe_02", JpName="左つま先E", Hidden=true },
+                //Right leg
+                new BoneData() { OrgName="r_leg_01", JpName="右足", EnName="groin_r", ParentJp="下半身", ChildJp="右ひざ", Group = "Legs" },
+                new BoneData() { OrgName="r_leg_02", JpName="右ひざ", EnName="knee_r", ChildJp="右足首", Group = "Legs" },
+                new BoneData() { OrgName="r_foot_01", JpName="右足首", EnName="ankle_r", ChildJp="右つま先", Group = "Legs" },
+                new BoneData() { OrgName="r_toe", JpName="右つま先", EnName="toe_r", ChildJp="右つま先E", Group = "Legs" },
+                new BoneData() { OrgName="r_toe_02", JpName="右つま先E", Hidden=true },                
+
+                //Others
+                new BoneData() { OrgName="l_bust_up", JpName="l_bust_up", EnName="l_bust_up", Group = "Body", Direction = new PMXVector3( 0.0f, 0.0f, -0.5f) },
+                new BoneData() { OrgName="r_bust_up", JpName="r_bust_up", EnName="r_bust_up", Group = "Body", Direction = new PMXVector3( 0.0f, 0.0f, -0.5f) },
+                new BoneData() { OrgName="l_wing", JpName="l_wing", EnName="l_wing", Group = "Body", Direction = new PMXVector3( 5.0f, 0.0f, 2.0f) },
+                new BoneData() { OrgName="r_wing", JpName="r_wing", EnName="r_wing", Group = "Body", Direction = new PMXVector3(-5.0f, 0.0f, 2.0f) },
             };
 
             MorphData[] mds = new MorphData[]
@@ -315,19 +418,23 @@ namespace VVVPMX
 
             ExtraGroup[] exgs = new ExtraGroup[]
             {
-                new ExtraGroup() { GroupName = "Hair", GroupKeys = new string[] { "hair" } },
+                new ExtraGroup() { GroupName = "Hair", GroupKeys = new string[] { "hair", "ahoge", "tail" } },
                 new ExtraGroup() { GroupName = "Skirt", GroupKeys = new string[] { "skirt" } },
                 new ExtraGroup() { GroupName = "Scarf", GroupKeys = new string[] { "scarf" } },
                 new ExtraGroup() { GroupName = "Twintails", GroupKeys = new string[] { "twin" } },
-                new ExtraGroup() { GroupName = "Body", GroupKeys = new string[] { "bust", "cloth" } },
+                new ExtraGroup() { GroupName = "Ties", GroupKeys = new string[] { "tie" } },
+                new ExtraGroup() { GroupName = "Body", GroupKeys = new string[] { "bust", "mune" } },
+                new ExtraGroup() { GroupName = "Clothes", GroupKeys = new string[] { "cloth", "suso", "itemback" } },
+                new ExtraGroup() { GroupName = "Ribbon", GroupKeys = new string[] { "ribon" } },
             };
             
             Dictionary<string, PMXBone> jpBones = new Dictionary<string, PMXBone>();
-            string[] prefixes = new string[] { "bdb", "ndb", "fab", "fpb", "dpb", "npb", "loc" };
+            string[] prefixes = new string[] { "bdbone", "phbone", "bdb", "ndb", "fab", "fpb", "dpb", "npb", "loc" };
             List<string> groupNames = new List<string>();
 
             Dictionary<string, List<PMXBone>> groupBones = new Dictionary<string, List<PMXBone>>();
-            
+
+            Dictionary<PMXBone, string> newLocations = new Dictionary<PMXBone, string>();
 
             Dictionary<PMXBone, bool> boneHasVertices = new Dictionary<PMXBone, bool>();
 
@@ -338,7 +445,14 @@ namespace VVVPMX
             PMXBone centerBone = new PMXBone(pmxmd);
             centerBone.NameEN = "center";
             centerBone.NameJP = "センター";
-            centerBone.Position = new PMXVector3(0.0f, pmxmd.Bones[1].Position.Y * 2.0f/3.0f, 0.0f);
+
+            float cy = pmxmd.Bones[1].Position.Y * 2.0f / 3.0f;
+            if (cy < 6.0f || cy > 12.0f)
+            {
+                cy = 8.0f;
+            }
+
+            centerBone.Position = new PMXVector3(0.0f, cy, 0.0f);
             centerBone.Rotatable = true;
             centerBone.Translatable = true;
             centerBone.Parent = pmxmd.Bones[0];
@@ -350,6 +464,12 @@ namespace VVVPMX
             foreach (PMXBone bn in pmxmd.Bones)
             {
                 string orgName = bn.NameJP;
+
+                if (orgName.ToLowerInvariant().StartsWith("id_"))
+                {
+                    orgName = orgName.Substring(3);
+                }
+
                 string innerName = null;
 
                 string prefix = null;
@@ -360,13 +480,13 @@ namespace VVVPMX
                 if (groups.Length > 1)
                 {
                     string testPrefix = groups[0].ToLowerInvariant();
-                    if (prefixes.Contains(testPrefix)) 
+                    if (prefixes.Contains(testPrefix))
                     {
                         prefix = testPrefix;
 
                         innerName = String.Join("_", groups, 1, groups.Length - 1);
-                    } 
-                    
+                    }
+
                     if (prefix != null)
                     {
                         if (hiddenPrefixes.Contains(prefix))
@@ -391,12 +511,26 @@ namespace VVVPMX
                             bnIndex = testInt2;
                             innerName = String.Join("_", groups, 1, groups.Length - 3);
                         }
-                    }                    
+                    } 
+                    else if(groupLess)
+                    {
+                        int testInt2 = -1;
+                        if (int.TryParse(groups[groups.Length - 1], out testInt2))
+                        {
+                            bnIndex = testInt2;
+                            innerName = String.Join("_", groups, 1, groups.Length - 2);
+                        }
+                    }
+
+                    if (prefix == "loc")
+                    {
+                        continue;
+                    }
 
                     BoneData bnIdent = null;
 
                     foreach (BoneData bd in bones)
-                    {
+                    {                        
                         if (prefixDefault)
                         {
                             if ((!bd.Prefixed) && orgName.ToLowerInvariant() == bd.OrgName.ToLowerInvariant())
@@ -409,7 +543,7 @@ namespace VVVPMX
                                 bnIdent = bd;
                                 break;
                             }
-                        } 
+                        }
                         else
                         {
                             if (orgName.ToLowerInvariant() == bd.OrgName.ToLowerInvariant())
@@ -417,24 +551,29 @@ namespace VVVPMX
                                 bnIdent = bd;
                                 break;
                             }
-                        }                        
+                        }
                     }
 
                     if (bnIdent != null)
                     {
+                        if (bnIdent.UseLocationOfJp != null)
+                        {
+                            newLocations.Add(bn, bnIdent.UseLocationOfJp);
+                        }
+
                         if (bnIdent.EnName != null)
                         {
                             bn.NameEN = bnIdent.EnName;
-                        }                        
+                        }
                         if (bnIdent.JpName != null)
                         {
                             bn.NameJP = bnIdent.JpName;
-
+                            
                             if (bnIdent.Group != null && !groupNames.Contains(bnIdent.Group))
                             {
                                 groupNames.Add(bnIdent.Group);
                             }
-                        }                        
+                        }
 
                         bn.Visible = !bnIdent.Hidden;
                         bn.Translatable = bnIdent.Movable;
@@ -452,10 +591,35 @@ namespace VVVPMX
                         if (bnIdent.JpName != null)
                         {
                             jpBones.Add(bn.NameJP, bn);
-                        }                        
+                        }
+                    }
+                }
+                else if (!prefixDefault)
+                {
+                    foreach (BoneData bd in bones)
+                    {
+                        if (orgName.ToLowerInvariant() == bd.OrgName.ToLowerInvariant())
+                        {
+                            if (bd.Hidden)
+                            {
+                                bn.Visible = false;
+                            }
+                            break;
+                        }
                     }
                 }
             }
+
+            foreach (KeyValuePair<PMXBone, string> newLocation in newLocations)
+            {
+                if (jpBones.ContainsKey(newLocation.Value))
+                {
+                    newLocation.Key.Position.X = jpBones[newLocation.Value].Position.X;
+                    newLocation.Key.Position.Y = jpBones[newLocation.Value].Position.Y;
+                    newLocation.Key.Position.Z = jpBones[newLocation.Value].Position.Z;
+                }
+            }
+            
 
             pmxmd.DisplaySlots[0].References.Add(pmxmd.Bones[0]);
 
@@ -615,6 +779,11 @@ namespace VVVPMX
             foreach (PMXBone bn in pmxmd.Bones)
             {
                 string bnNew = bn.NameJP;
+                if (bnNew.ToLowerInvariant().StartsWith("id_"))
+                {
+                    bnNew = bnNew.Substring(3);
+                }
+
                 if (!jpBones.ContainsKey(bnNew))
                 {
                     continue;
@@ -661,6 +830,12 @@ namespace VVVPMX
                 }
 
                 string orgName = bn.NameJP;
+
+                if (orgName.ToLowerInvariant().StartsWith("id_"))
+                {
+                    orgName = orgName.Substring(3);
+                }
+
                 string innerName = null;
 
                 string prefix = null;
@@ -706,6 +881,21 @@ namespace VVVPMX
                             if (int.TryParse(groups[groups.Length - 3], out testInt3))
                             {
                                 innerName = String.Join("_", groups, 1, groups.Length - 4);
+                                internalIndex = testInt3;
+                            }
+                        }
+                    } 
+                    else if (groupLess)
+                    {
+                        int testInt2 = -1, testInt3 = -1;
+                        if (int.TryParse(groups[groups.Length - 1], out testInt2))
+                        {
+                            bnIndex = testInt2;
+                            innerName = String.Join("_", groups, 1, groups.Length - 2);
+
+                            if (int.TryParse(groups[groups.Length - 2], out testInt3))
+                            {
+                                innerName = String.Join("_", groups, 1, groups.Length - 3);
                                 internalIndex = testInt3;
                             }
                         }
@@ -811,14 +1001,17 @@ namespace VVVPMX
                 PMXDisplaySlot ds = new PMXDisplaySlot(pmxmd);
                 ds.NameEN = gn;
                 ds.NameJP = gn;
-                bool added = false;                
+                bool added = false;
+
+                List<string> alreadyAdded = new List<string>();
 
                 foreach (BoneData bd in bones)
                 {
-                    if (bd.Group == null || !jpBones.ContainsKey(bd.JpName) || bd.Group != gn)
+                    if (bd.Group == null || !jpBones.ContainsKey(bd.JpName) || bd.Group != gn || alreadyAdded.Contains(bd.JpName))
                     {
                         continue;
                     }
+                    alreadyAdded.Add(bd.JpName);
                     PMXBone bn = jpBones[bd.JpName];
                     
                     if (!bn.Visible)
@@ -832,7 +1025,6 @@ namespace VVVPMX
                         added = true;
                     }
                     
-
                     ds.References.Add(bn);
                 }
 
@@ -997,6 +1189,12 @@ namespace VVVPMX
             foreach (PMXBone bn in pmxmd.Bones)
             {
                 string bnNew = bn.NameJP;
+
+                if (bnNew.ToLowerInvariant().StartsWith("id_"))
+                {
+                    bnNew = bnNew.Substring(3);
+                }
+
                 if (jpBones.ContainsKey(bnNew) || !bn.Visible)
                 {
                     continue;
@@ -1200,10 +1398,16 @@ namespace VVVPMX
                     continue;
                 }
 
-                int offset = b.NameJP.ToLowerInvariant().IndexOf(parsedName.ToLowerInvariant());
+                string nJp = b.NameJP;
+                if (nJp.ToLowerInvariant().StartsWith("id_"))
+                {
+                    nJp = nJp.Substring(3);
+                }
+
+                int offset = nJp.ToLowerInvariant().IndexOf(parsedName.ToLowerInvariant());
                 if (offset != -1)
                 {
-                    string remaining = b.NameJP.Substring(offset + parsedName.Length + 1);
+                    string remaining = nJp.Substring(offset + parsedName.Length + 1);
                     int nextSub = remaining.IndexOf("_");
                     if (nextSub >= 0)
                     {
@@ -1212,7 +1416,7 @@ namespace VVVPMX
 
                     if (remaining == "root")
                     {
-                        remaining = b.NameJP.Substring(offset + parsedName.Length + 6);
+                        remaining = nJp.Substring(offset + parsedName.Length + 6);
                         nextSub = remaining.IndexOf("_");
                         if (nextSub >= 0)
                         {
