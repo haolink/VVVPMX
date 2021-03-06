@@ -50,14 +50,14 @@ namespace VVVPMX
     {
         static void Main(string[] args)
         {
-            string inname = @"F:\rip\nvs\convert\C550\C550.pmx";
-            string outname = @"F:\rip\nvs\mmd\pheart\purpleheart.pmx";
+            string inname = @"F:\rip\nvs\convert\C516\C516.pmx";
+            string outname = @"F:\rip\nvs\mmd\neptune\bunny.pmx";
 
-            string modelName = "Purple Heart";
+            string modelName = "Neptune - Bunny";
             string modelComment = "Ripped from VVVTune! Model is made by Idea Factory and Compile Heart, ported to MMD by haoLink.\r\n\r\nFeel free to use, please respect the original makers though!";
 
             bool prefixDefault = true;
-            bool groupLess = true;
+            bool groupLess = false;
 
             BoneData[] bones = new BoneData[]
             {
@@ -75,8 +75,10 @@ namespace VVVPMX
                 new BoneData() { OrgName="left_neutral_eyeseyesyes_001", EnName="eyes", JpName="両目", Group = "Body" },
                 new BoneData() { OrgName="left_neutral_eyerot_001", EnName="eye_l", JpName="左目", ChildJp="左目E", Group = "Body" },
                 new BoneData() { OrgName="left_neutral_eye_001", Hidden = true, JpName="左目E" },
+                new BoneData() { OrgName="left_neutral_eye_002", Hidden = true, JpName="左目E" },
                 new BoneData() { OrgName="right_neutral_eyerot_001", EnName="eye_r", JpName="右目", ChildJp="右目E", Group = "Body" },
                 new BoneData() { OrgName="right_neutral_eye_001", Hidden = true, JpName="右目E" },
+                new BoneData() { OrgName="right_neutral_eye_002", Hidden = true, JpName="右目E" },
 
                 //Left arm
                 new BoneData() { OrgName="left_top_shoulder", EnName="shoulder_l", JpName="左肩", ChildJp="左腕", Group = "Arms" },
