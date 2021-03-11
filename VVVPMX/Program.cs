@@ -50,15 +50,57 @@ namespace VVVPMX
     {
         static void Main(string[] args)
         {
-            string inname = @"F:\rip\nvs\convert\C516\C516.pmx";
-            string outname = @"F:\rip\nvs\mmd\neptune\bunny.pmx";
-
-            string modelName = "Neptune - Bunny";
-            string modelComment = "Ripped from VVVTune! Model is made by Idea Factory and Compile Heart, ported to MMD by haoLink.\r\n\r\nFeel free to use, please respect the original makers though!";
+            string infolder = @"F:\rip\nvs\convert";
+            string outfolder = @"F:\rip\nvs\mmd";
+            string charId = "C91";
+            string outname = "Towa Kiseki";
 
             bool prefixDefault = true;
-            bool groupLess = false;
+            bool groupLess = true;
 
+            string modelComment = "Ripped from VVVTune! Model is made by Idea Factory and Compile Heart, ported to MMD by haoLink.\r\n\r\nFeel free to use, please respect the original makers though!";
+
+            var modelIds = new Dictionary<int, string[]>()
+            {
+                { 0, null },
+                { 1, new string[] { "NEXT", "next" } },
+                { 2, new string[] { "Goddess Leotard", "leotard" } },
+                { 3, new string[] { "Secret Maid", "maid" } },
+                { 4, new string[] { "Bikini", "bikini" } },
+                { 5, new string[] { "Swimwear", "swimwear" } },
+                { 6, new string[] { "Bunny", "bunny" } }
+            };
+
+            foreach (KeyValuePair<int, string[]> kp in modelIds)
+            {
+                string inFile = infolder + "\\" + charId + kp.Key.ToString() + "\\" + charId + kp.Key.ToString() + ".pmx";
+                string outFile = outfolder + "\\" + outname.ToLowerInvariant().Replace(" ", "") + "\\";
+                string modelName = outname;
+
+                if (!File.Exists(inFile))
+                {
+                    continue;
+                }
+
+                if (kp.Value == null)
+                {
+                    outFile += outname.ToLowerInvariant().Replace(" ", "") + ".pmx";
+                }
+                else
+                {
+                    outFile += kp.Value[1] + ".pmx";
+                    modelName += " - " + kp.Value[0];
+                }
+
+                Console.Write(kp.Key + " - ");
+                RunProgress(inFile, outFile, modelName, modelComment, prefixDefault, groupLess);
+            }
+
+            System.Threading.Thread.Sleep(1500);
+        }
+
+        static void RunProgress(string inname, string outname, string modelName, string modelComment, bool prefixDefault, bool groupLess)
+        {            
             BoneData[] bones = new BoneData[]
             {
                 //Body
@@ -367,6 +409,13 @@ namespace VVVPMX
                 new BoneData() { OrgName="r_bust_up", JpName="r_bust_up", EnName="r_bust_up", Group = "Body", Direction = new PMXVector3( 0.0f, 0.0f, -0.5f) },
                 new BoneData() { OrgName="l_wing", JpName="l_wing", EnName="l_wing", Group = "Body", Direction = new PMXVector3( 5.0f, 0.0f, 2.0f) },
                 new BoneData() { OrgName="r_wing", JpName="r_wing", EnName="r_wing", Group = "Body", Direction = new PMXVector3(-5.0f, 0.0f, 2.0f) },
+
+                //Towa Kiseki
+                new BoneData() { OrgName="CE_rootbone", Hidden = true, ParentJp = "センター" },
+                new BoneData() { OrgName="Neutral_Neutral_mod", JpName="accessoryMaster", EnName="accessoryMaster", Group = "Accessory", Movable = true },
+                new BoneData() { OrgName="Neutral_Neutral_modA", JpName="accessoryA", EnName="accessoryA", Group = "Body", Movable = true },
+                new BoneData() { OrgName="Neutral_Neutral_modB", JpName="accessoryB", EnName="accessoryB", Group = "Body", Movable = true },
+                new BoneData() { OrgName="Neutral_Neutral_modC", JpName="accessoryC", EnName="accessoryC", Group = "Body", Movable = true },
             };
 
             MorphData[] mds = new MorphData[]
@@ -1265,8 +1314,7 @@ namespace VVVPMX
 
             pmxmd.SaveToFile(outname);
 
-            Console.WriteLine("Success");
-            System.Threading.Thread.Sleep(1500);
+            Console.WriteLine("Success");            
         }
 
         private static string GetTargetFileName(Dictionary<string, uint> inputFileHashes, Dictionary<uint, string> outputFileHashes, List<string> texFiles, string outputDirectory, string inputDirectory, string filename)
