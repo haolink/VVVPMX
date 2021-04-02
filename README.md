@@ -39,4 +39,4 @@ This is a rather special project. It uses PMX files converted by `OrochiPMX` and
 
 # Blablabla, copyright
 
-This is based on work by chrrox and he shall earn 99% of the credits for it. I release it under Apache 2.0 license which is a lot of legal text for "Feel free to use for whatever, credit is appreciated but not necessary, don't sue me!"
+This is based on work by chrrox and he shall earn 99% of the credits for it. I release it under Apache 2.0 license which is a lot of legal text for "Feel free to use for whatever, credit is appreciated but not necessary, don't sue me!" The license applies to all Visual Studio projects but not to the Noesis script. The projects make use of my PMX Classes for C# available on [GitHub (https://github.com/haolink/PMXStructure)](https://github.com/haolink/PMXStructure). They are using a Do-Whatever-You-Want-With-This license.

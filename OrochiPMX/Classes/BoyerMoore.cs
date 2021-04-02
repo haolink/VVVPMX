@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * Copyright (C) 2021 haolink <https://www.twitter.com/haolink> / <https://github.com/haolink>
+ * Code based on chrrox Orochi4 converter
+ * 
+ * Code licensed under Apache 2.0 license, see LICENSE
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
