@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F5B319F3-98BC-47B9-94E6-70267EA89359}</ProjectGuid>
+    <ProjectGuid>{B6EE9EB4-2A92-4153-8E40-2B44D1E63F2F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>VVVPMX</RootNamespace>
-    <AssemblyName>VVVPMX</AssemblyName>
+    <RootNamespace>OrochiPMX</RootNamespace>
+    <AssemblyName>OrochiPMX</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,19 +32,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="File_CRC32.cs" />
+    <Compile Include="BinaryReaderExtension.cs" />
+    <Compile Include="Classes\BoyerMoore.cs" />
+    <Compile Include="GsmdlFile.cs" />
     <Compile Include="PMXClasses\General\PMXColorRGB.cs" />
     <Compile Include="PMXClasses\General\PMXColorRGBA.cs" />
     <Compile Include="PMXClasses\General\PMXQuaternion.cs" />
@@ -88,7 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Compile Include="BoneRotator.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

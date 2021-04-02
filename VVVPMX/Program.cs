@@ -52,8 +52,8 @@ namespace VVVPMX
         {
             string infolder = @"F:\rip\nvs\convert";
             string outfolder = @"F:\rip\nvs\mmd";
-            string charId = "C91";
-            string outname = "Towa Kiseki";
+            string charId = "C58";
+            string outname = "Green Heart";
 
             bool prefixDefault = true;
             bool groupLess = true;
@@ -67,7 +67,8 @@ namespace VVVPMX
                 { 2, new string[] { "Goddess Leotard", "leotard" } },
                 { 3, new string[] { "Secret Maid", "maid" } },
                 { 4, new string[] { "Bikini", "bikini" } },
-                { 5, new string[] { "Swimwear", "swimwear" } },
+                //{ 5, new string[] { "Swimwear", "swimwear" } },
+                { 5, new string[] { "Casual", "casual" } },
                 { 6, new string[] { "Bunny", "bunny" } }
             };
 
@@ -420,7 +421,7 @@ namespace VVVPMX
 
             MorphData[] mds = new MorphData[]
             {
-                new MorphData() { OrgName = "a_big", JpName = "あ" },
+                /*new MorphData() { OrgName = "a_big", JpName = "あ" },
                 new MorphData() { OrgName = "i_big", JpName = "い" },
                 new MorphData() { OrgName = "u_big", JpName = "う" },
                 new MorphData() { OrgName = "e_big", JpName = "え" },
@@ -429,7 +430,12 @@ namespace VVVPMX
                 new MorphData() { OrgName = "i_small", JpName = "い２" },
                 new MorphData() { OrgName = "u_small", JpName = "う２" },
                 new MorphData() { OrgName = "e_small", JpName = "え２" },
-                new MorphData() { OrgName = "o_small", JpName = "お２" },
+                new MorphData() { OrgName = "o_small", JpName = "お２" },*/
+                new MorphData() { OrgName = "a_small", JpName = "あ" },
+                new MorphData() { OrgName = "i_small", JpName = "い" },
+                new MorphData() { OrgName = "u_small", JpName = "う" },
+                new MorphData() { OrgName = "e_small", JpName = "え" },
+                new MorphData() { OrgName = "o_small", JpName = "お" },
                 new MorphData() { OrgName = "triangleclose", JpName = "∧" },
                 new MorphData() { OrgName = "triangleopen", JpName = "▲" },
                 new MorphData() { OrgName = "smile", JpName = "にやり" },
@@ -1106,7 +1112,20 @@ namespace VVVPMX
                 string segment = split[0];
 
                 string jName = String.Join("_", split, 2, split.Length - 2);
-                jName = jName.Substring(0, jName.Length - 5);
+                string lastChars = jName.Substring(jName.Length - 5);
+                if (lastChars.ToLowerInvariant() == "shape")
+                {
+                    jName = jName.Substring(0, jName.Length - 5);
+                } 
+                else
+                {
+                    lastChars = jName.Substring(jName.Length - 6);
+                    if (lastChars.ToLowerInvariant() == "shape1")
+                    {
+                        jName = jName.Substring(0, jName.Length - 6);
+                    }
+                }
+                                
                 mrph.NameJP = jName;
                 mrph.NameEN = jName;
 
